@@ -50,32 +50,51 @@ public class UserDAO extends DAO{
         return result;
     }
     
-    
     /**
-     *@param username
-     *@param password
-     *@return
+     * 
+     * @param username
+     * @param password
+     * @return 
      */
-    public boolean createAccount(String username , String password)
+    public boolean addAccount (String username , String password)
     {
-        boolean result = false;
         
-        String sql = "INSERT INTO user VALUE ( ? , ?)";
+        String sql = "SELECT * FROM tblUser WHERE username = ?";
+        String addAcount = "INSERT INTO dbo.tblUser(username , password) VALUES(? , ?);";
         
         try
         {
             PreparedStatement ps = con.prepareStatement(sql);
             
             ps.setString(1, username);
-            ps.setString(2, password);
             
-             result = true;
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next())
+            {
+                return false;
+            }
+            else
+            {
+                ps = con.prepareStatement(addAcount);
+                
+                ps.setString(1, username);
+                ps.setString(2 , password);
+                
+                int number = ps.executeUpdate();
+                
+                if (number != 0)
+                {
+                    return true;
+                }
+            }
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
-        return result;
+        
+        
+        return false;
     }
-    
 }

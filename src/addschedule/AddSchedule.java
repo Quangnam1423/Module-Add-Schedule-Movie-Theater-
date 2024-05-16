@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import DAO.DAO;
 
 public class AddSchedule {
     
@@ -17,16 +16,16 @@ public class AddSchedule {
     
     public static void main(String[] args) {
         // Database connection parameters
-        String url = "jdbc:mysql://localhost:3306/movieTheater"; // Replace 'mydatabase' with your database name
-        String username = "root";
-        String password = "@Tongquangnam2003";
+        String url = "jdbc:sqlserver://TQN-PTIT:1433;databaseName=MovieTheater;encrypt=true;trustServerCertificate=true"; // Replace 'mydatabase' with your database name
+        String username = "sa";
+        String password = "12345";
 
         // JDBC connection object
         Connection connection = null;
 
         try {
             // Register MySQL JDBC driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
             // Connect to MySQL database
             connection = DriverManager.getConnection(url, username, password);

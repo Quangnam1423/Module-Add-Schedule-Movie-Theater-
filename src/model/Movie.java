@@ -12,12 +12,22 @@ import java.io.Serializable;
  */
 public class Movie implements Serializable{
 
+    
     private int movieId;
-    private String name;
-    private String description;
-    private double length;
-    private String language;
-    private double rating;
+    private String movieName;
+    private String descript;
+    private float movieLength;
+    private String movieLanguage;
+    private float rating;
+
+    public Movie(int movieId, String movieName, String descript, float movieLength, String movieLanguage, float rating) {
+        this.movieId = movieId;
+        this.movieName = movieName;
+        this.descript = descript;
+        this.movieLength = movieLength;
+        this.movieLanguage = movieLanguage;
+        this.rating = rating;
+    }
 
     public int getMovieId() {
         return movieId;
@@ -27,52 +37,44 @@ public class Movie implements Serializable{
         this.movieId = movieId;
     }
 
-    public String getName() {
-        return name;
+    public String getMovieName() {
+        return movieName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescript() {
+        return descript;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescript(String descript) {
+        this.descript = descript;
     }
 
-    public double getLength() {
-        return length;
+    public float getMovieLength() {
+        return movieLength;
     }
 
-    public void setLength(double length) {
-        this.length = length;
+    public void setMovieLength(float movieLength) {
+        this.movieLength = movieLength;
     }
 
-    public String getLanguage() {
-        return language;
+    public String getMovieLanguage() {
+        return movieLanguage;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setMovieLanguage(String movieLanguage) {
+        this.movieLanguage = movieLanguage;
     }
 
-    public double getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
-
-    public Movie(int movieId, String name, String description, double length, String language, double rating) {
-        this.movieId = movieId;
-        this.name = name;
-        this.description = description;
-        this.length = length;
-        this.language = language;
-        this.rating = rating;
-    }
+  
 }

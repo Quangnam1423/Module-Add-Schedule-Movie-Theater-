@@ -20,34 +20,35 @@ public class SeatDAO extends DAO{
         super();
     }
     
+    
     /**
-     *return all the Seat entity that match with roomId
-     *@param roomId
-     *@return
+     * 
+     * @param roomId
+     * @return 
      */
-    public ArrayList<Seat> getAllSeatByRoomId(int roomId)
+    public static ArrayList<Seat> getAllSeatByRoomId(int roomId)
     {
         ArrayList<Seat> array = new ArrayList<>();
-        String sql = "SELECT * from tblSeat WHERE roomId = ?";
+        
+        String sql = "SELECT * FROM dbo.tblSeat WHERE roomId = ?;";
         
         try
         {
             PreparedStatement ps = con.prepareStatement(sql);
             
-            ps.setInt(1 , roomId);
+            ps.setInt(1, roomId);
             
             ResultSet rs = ps.executeQuery();
             
-            while(rs.next())
+            while (rs.next())
             {
-                Seat seat = new Seat(rs.getInt("roomId") , 
-                                     rs.getString("type") , 
-                                     rs.getInt("column") ,
-                                     rs.getInt("row") ,
-                                     rs.getString("description") , 
-                                     rs.getInt("roomId")
-                                    );
-                array.add(seat);
+                array.add(new Seat( rs.getInt("seatId") ,
+                                    rs.getInt("col") ,
+                                    rs.getInt("ro") ,
+                                    rs.getString("seatType") ,
+                                    rs.getString("descript") ,
+                                    rs.getInt("roomId")
+                    ));
             }
         }
         catch (Exception e)
@@ -55,10 +56,8 @@ public class SeatDAO extends DAO{
             e.printStackTrace();
         }
         
-        // return the array of seat that match with roomId
         return array;
     }
-    
     
     
     /**
@@ -66,34 +65,35 @@ public class SeatDAO extends DAO{
      * @param seatId
      * @return 
      */
-    public static Seat getSeatById(int seatId)
+    public static Seat getSeatBySeatId (int seatId)
     {
-        String sql = "SELECT * from tblSear WHERE seatId = ?;";
+        String sql = "SELECT * FROM dbo.tblSeat WHERE seatId = ?;";
         
-                try
+        try
         {
             PreparedStatement ps = con.prepareStatement(sql);
             
-            ps.setInt(1 , seatId);
-            
             ResultSet rs = ps.executeQuery();
             
-            while(rs.next())
+            if (rs.next())
             {
-                Seat seat = new Seat(rs.getInt("roomId") , 
-                                     rs.getString("type") , 
-                                     rs.getInt("column") ,
-                                     rs.getInt("row") ,
-                                     rs.getString("description") , 
-                                     rs.getInt("roomId")
-                                    );
-                return seat;
+                return new Seat( rs.getInt("seatId") ,
+                                    rs.getInt("col") ,
+                                    rs.getInt("ro") ,
+                                    rs.getString("seatType") ,
+                                    rs.getString("descript") ,
+                                    rs.getInt("roomId")
+                            );
             }
+            else
+                return null;
         }
-        catch (Exception e)
+        catch(Exception e)
         {
             e.printStackTrace();
         }
+        
         return null;
     }
+    //////////////////////////////////////////////////////////
 }

@@ -11,21 +11,13 @@ import java.io.Serializable;
  * @author tongquangnam
  */
 public class Seat implements Serializable{
+    
     private int seatId;
-    private String type;
-    private int column;
-    private int row;
-    private String description;
+    private int col;
+    private int ro;
+    private String seatType;
+    private String descript;
     private int roomId;
-
-    public Seat(int seatId, String type, int column, int row, String description, int roomId) {
-        this.seatId = seatId;
-        this.type = type;
-        this.column = column;
-        this.row = row;
-        this.description = description;
-        this.roomId = roomId;
-    }
 
     public int getSeatId() {
         return seatId;
@@ -35,36 +27,36 @@ public class Seat implements Serializable{
         this.seatId = seatId;
     }
 
-    public String getType() {
-        return type;
+    public int getCol() {
+        return col;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setCol(int col) {
+        this.col = col;
     }
 
-    public int getColumn() {
-        return column;
+    public int getRo() {
+        return ro;
     }
 
-    public void setColumn(int column) {
-        this.column = column;
+    public void setRo(int ro) {
+        this.ro = ro;
     }
 
-    public int getRow() {
-        return row;
+    public String getSeatType() {
+        return seatType;
     }
 
-    public void setRow(int row) {
-        this.row = row;
+    public void setSeatType(String seatType) {
+        this.seatType = seatType;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescript() {
+        return descript;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescript(String descript) {
+        this.descript = descript;
     }
 
     public int getRoomId() {
@@ -74,4 +66,15 @@ public class Seat implements Serializable{
     public void setRoomId(int roomId) {
         this.roomId = roomId;
     }
+
+    public Seat(int seatId, int col, int ro, String seatType, String descript, int roomId) {
+        this.seatId = seatId;
+        this.col = col;
+        this.ro = ro;
+        this.seatType = seatType;
+        this.descript = descript;
+        this.roomId = roomId;
+    }
+    
+    
 }

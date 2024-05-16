@@ -60,7 +60,7 @@ public class RoomDAO extends DAO{
      *@param roomName
      *@return
      */
-    public ArrayList<Room> searchRoom(String roomName)
+    public static ArrayList<Room> searchRoom(String roomName)
     {
         ArrayList<Room> result = new ArrayList<>();
         
@@ -89,7 +89,7 @@ public class RoomDAO extends DAO{
      *get all room entity
      *@return
      */
-    public ArrayList<Room> getAllRoom()
+    public static ArrayList<Room> getAllRoom()
     {
         ArrayList<Room> array = new ArrayList<>();
         

@@ -5,6 +5,9 @@
 package model;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -13,36 +16,65 @@ import java.io.Serializable;
 
 public class MovieSession implements Serializable{
 
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    
+    
+    private int movieSessionId;
+    private Movie movie;
+    private Room room;
+    private Date startTime;
+    private long seatNormal;
+    private long seatVip;
+    private long seatDouble;
+
+    
+    
+    public MovieSession(Movie movie, Room room, String Time, long seatNormal, long seatVip, long seatDouble) {
+        this.movie = movie;
+        this.room = room;
+        try
+        {
+            this.startTime = sdf.parse(Time);
+        }
+        catch(ParseException e)
+        {
+            e.printStackTrace();
+        }
+        this.seatNormal = seatNormal;
+        this.seatVip = seatVip;
+        this.seatDouble = seatDouble;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStarttime(Date dateTime) {
+        this.startTime = dateTime;
+    }
+
     public int getMovieSessionId() {
         return movieSessionId;
     }
 
     public void setMovieSessionId(int movieSessionId) {
         this.movieSessionId = movieSessionId;
-    }
-
-    public int getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
-    }
-
-    public int getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
-    }
-
-    public String getDatetime() {
-        return datetime;
-    }
-
-    public void setDatetime(String datetime) {
-        this.datetime = datetime;
     }
 
     public long getSeatNormal() {
@@ -68,26 +100,5 @@ public class MovieSession implements Serializable{
     public void setSeatDouble(long seatDouble) {
         this.seatDouble = seatDouble;
     }
-
-    public MovieSession(int movieSessionId, int roomId, int movieId, String datetime, long seatNormal, long seatVip, long seatDouble) {
-        this.movieSessionId = movieSessionId;
-        this.roomId = roomId;
-        this.movieId = movieId;
-        this.datetime = datetime ;
-        this.seatNormal = seatNormal;
-        this.seatVip = seatVip;
-        this.seatDouble = seatDouble;
-    }
-    
-    
-    private int movieSessionId;
-    private int roomId;
-    private int movieId;
-    private String datetime;
-    private long seatNormal;
-    private long seatVip;
-    private long seatDouble;
-    
-    
     
 }

@@ -6,10 +6,12 @@ package DAO;
 
 import model.RoomSlot;
 import model.Room;
+import model.SeatSlot;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.ArrayList;
 
 
 /**
@@ -30,7 +32,7 @@ public class RoomSlotDAO extends DAO{
      * @param movieSessionId
      * @return 
      */
-    public RoomSlot getRoomSlotByMovieSessionId(int movieSessionId)
+    public static RoomSlot getRoomSlotByMovieSessionId(int movieSessionId)
     {
         
         String sql = "SELECT * FROM tblRoomSlot  b WHERE b.movieSessionId = ?;";
@@ -48,13 +50,15 @@ public class RoomSlotDAO extends DAO{
             {
                 int roomId = rs.getInt("roomId");
                 Room room = RoomDAO.getRoomById(roomId);
-                RoomSlot roomSlot = new RoomSlot(room , 
-                                                rs.getInt("roomSlotId") , 
-                                                rs.getInt("movieSessionId") , 
-                                                rs.getDate("datetime")
-                                            );
+                ArrayList<SeatSlot> array = SeatSlotDAO.getSeatSlotOfRoomSlot(rs.getInt("roomSlotId"));
+                return new RoomSlot(rs.getInt("roomSlotId") , 
+                                    room , 
+                                    (java.util.Date) rs.getDate("startTime") ,
+                                    rs.getFloat("movieLength") , 
+                                    movieSessionId ,
+                                    array
+                                );
                 
-                return roomSlot;
             }
             
         }
@@ -72,7 +76,7 @@ public class RoomSlotDAO extends DAO{
      * @param datetime
      * @return 
      */
-    public boolean addRoomSlot(Room room , int movieSessionId , Date datetime)
+    public static boolean addRoomSlot(Room room , int movieSessionId , Date datetime)
     {
         boolean result = true;
         

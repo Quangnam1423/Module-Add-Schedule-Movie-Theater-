@@ -24,57 +24,53 @@ public class MovieDAO extends DAO{
         super();
     }
     
-     /**
-     *get all movie from database
-     *@return
+    /**
+     * 
+     * @return 
      */
-    
-    public ArrayList<Movie> getAllMovie()
+    public static ArrayList<Movie> getAllMovie()
     {
-        ArrayList<Movie> Movies = new ArrayList<>();
+        ArrayList<Movie> array = new ArrayList<>();
+        String sql = "SELECT * FROM dbo.tblMovie";
         
-        
-        String sqlgetAllFilm = "SELECT * from tblMovie;";
-        
-        try{
-            PreparedStatement ps = con.prepareStatement(sqlgetAllFilm);
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
             
             ResultSet rs = ps.executeQuery();
             
             while (rs.next())
             {
-                Movies.add(new Movie(rs.getInt("movieId") , 
-                                     rs.getString("name") , 
-                                     rs.getString("description"),
-                                     rs.getDouble("length") , 
-                                     rs.getString("language") , 
-                                     rs.getDouble("rating")
-                         ));
+                array.add(new Movie(rs.getInt("movieId") ,
+                                    rs.getString("movieName") ,
+                                    rs.getString("descript") ,
+                                    rs.getFloat("movieLength") ,
+                                    rs.getString("movieLanguage") ,
+                                    rs.getFloat("rating")
+                                ));
             }
         }
         catch(Exception e)
         {
             e.printStackTrace();
         }
-        
-        
-        return Movies;
+        return array;
     }
     
-    /**
-     *@param movieName
-     *@return 
-    */
     
-    public ArrayList<Movie> searchRoom(String movieName)
+    /**
+     * 
+     * @param movieName
+     * @return 
+     */
+    public static ArrayList<Movie> getMovieByName(String movieName)
     {
-        ArrayList<Movie> Movies = new ArrayList<>();
-        
-        String sqlGetByName = "SELECT * from tblMovie WHERE name LIKE ?;";
+        ArrayList<Movie> array = new ArrayList<>();
+        String sql = "SELECT * FROM dbo.tblMovie WHERE movieName LIKE ?";
         
         try
         {
-            PreparedStatement ps = con.prepareStatement(sqlGetByName);
+            PreparedStatement ps = con.prepareStatement(sql);
             
             ps.setString(1 , movieName);
             
@@ -82,60 +78,55 @@ public class MovieDAO extends DAO{
             
             while (rs.next())
             {
-                Movies.add(new Movie(rs.getInt("movieId") , 
-                                     rs.getString("name") , 
-                                     rs.getString("description"),
-                                     rs.getDouble("length") , 
-                                     rs.getString("language") , 
-                                     rs.getDouble("rating")
-                         ));
+                array.add(new Movie(rs.getInt("movieId") ,
+                                    rs.getString("movieName") ,
+                                    rs.getString("descript") ,
+                                    rs.getFloat("movieLength") ,
+                                    rs.getString("movieLanguage") ,
+                                    rs.getFloat("rating")
+                                ));
             }
         }
         catch(Exception e)
         {
             e.printStackTrace();
         }
-        return Movies;
+        return array;
     }
     
-    /*
-    *@param rate
-    *@return
-    */
-    public ArrayList<Movie> searchMovieWithHigherRating(double Rate)
+    
+    /**
+     * 
+     * @param movieId
+     * @return 
+     */
+    public static Movie getMovieById(int movieId)
     {
-        
-        
-        ArrayList<Movie> Movies = new ArrayList<>();
-        String sqlGetMovie = "SELECT * tblMovie WHERE rating > ?;";
+        String sql = "SELECT * FROM dbo.tblMovie WHERE movieId = ?;";
         
         try
         {
-            PreparedStatement ps = con.prepareStatement(sqlGetMovie);
+            PreparedStatement ps = con.prepareStatement(sql);
             
-            ps.setDouble(1, Rate);
+            ps.setInt(1 , movieId);
             
             ResultSet rs = ps.executeQuery();
             
-            while (rs.next())
+            if (rs.next())
             {
-                Movies.add(new Movie(
-                                     rs.getInt("movieId") , 
-                                     rs.getString("name") , 
-                                     rs.getString("description"),
-                                     rs.getDouble("length") , 
-                                     rs.getString("language") , 
-                                     rs.getDouble("rating")
-                           ));
+                return new Movie(rs.getInt("movieId") ,
+                                    rs.getString("movieName") ,
+                                    rs.getString("descript") ,
+                                    rs.getFloat("movieLength") ,
+                                    rs.getString("movieLanguage") ,
+                                    rs.getFloat("rating")
+                                );
             }
         }
         catch(Exception e)
         {
             e.printStackTrace();
         }
-        
-        return Movies;
+        return null;
     }
-    
-    
 }

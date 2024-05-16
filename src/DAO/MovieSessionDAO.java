@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import model.MovieSession;
+import model.*;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -26,55 +26,102 @@ public class MovieSessionDAO extends DAO{
     
     
     /**
-     * 
-     * @param roomId
-     * @param movieId
-     * @param datetime
+     * add a movieSession into the database.
+     * @param movie
+     * @param room
+     * @param startTime
      * @param seatNormal
      * @param seatVip
      * @param seatDouble
      * @return 
      */
-    public MovieSession addMovieSession(int roomId , int movieId , String datetime , long seatNormal , long seatVip , long seatDouble)
+    public boolean addMovieSessionDAO(Movie movie , 
+                                        Room room , 
+                                        String startTime , 
+                                        long seatNormal , 
+                                        long seatVip , 
+                                        long seatDouble)
     {
+        boolean check = true;
+        String sql = "INSERT INTO dbo.tblMovieSession(movieId , roomId , startTime , seatNormal , seatVip , seatDouble)"
+                + "VALUES(? , ? , ? , ? , ? , ?);";
+        String sqlAddRoomSlot = "INSERT INTO dbo.tblRoomSlot(roomId , movieSessionId , startTime , movieLength)"
+                + "VALUES(? , ? , ? , ?)";
         
-        String sql = "INSERT INTO tblMovieSession(roomId , movieId , datetime , seatNormal , seatVip , seatDouble)"
-                        + "VALUES(? , ? , ? , ? , ? , ?);";
+        String sqlAddSeatSlot = "INSERT INTO dbo.tblSeatSlot(seatId , price , roomSlotId)"
+                + "VALUES(? , ? , ?);";
         
-        try 
+        
+        try
         {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS);
             
-            ps.setInt(1, roomId);
-            ps.setInt(2, movieId);
-            ps.setString(3, datetime);
+            ps.setInt(1, movie.getMovieId());
+            ps.setInt(2 , room.getRoomId());
+            ps.setString(3 , startTime);
             ps.setLong(4 , seatNormal);
             ps.setLong(5 , seatVip);
-            ps.setLong(6 , seatDouble);
+            ps.setLong(6, seatDouble);
             
             ps.executeUpdate();
             
-            ResultSet generateKeys = ps.getGeneratedKeys();
+            ResultSet rs = ps.getGeneratedKeys();
             
-            if (generateKeys.next())
+            if (rs.next())
             {
-                return new MovieSession(generateKeys.getInt(1) , 
-                                        roomId , 
-                                        movieId ,
-                                        datetime ,
-                                        seatNormal ,
-                                        seatVip ,
-                                        seatDouble
-                                        );
+                int newMovieSessionId = rs.getInt(1);
+                ps = con.prepareStatement(sqlAddRoomSlot , Statement.RETURN_GENERATED_KEYS);
+                
+                ps.setInt(1, room.getRoomId());
+                ps.setInt(2 , newMovieSessionId);
+                ps.setString(3 , startTime);
+                ps.setFloat(4 , movie.getMovieLength());
+                
+                ps.executeUpdate();
+                
+                rs = ps.getGeneratedKeys();
+                
+                if (rs.next())
+                {
+                    int newRoomSlotId = rs.getInt(1);
+                    
+                    for (Seat x : room.getSeats())
+                    {
+                        ps = con.prepareStatement(sqlAddSeatSlot);
+                        
+                        ps.setInt(1, x.getSeatId());
+                        
+                        if (x.getSeatType().equals("Normal") == true)
+                        {
+                            ps.setLong(2 , seatNormal);
+                        }
+                        else if (x.getSeatType().equals("Vip") == true)
+                        {
+                            ps.setLong(2 , seatVip);
+                        }
+                        else 
+                        {
+                            ps.setLong(2 , seatDouble);
+                        }
+                        
+                        ps.setInt(3 , newRoomSlotId);
+                        
+                        ps.executeUpdate();
+                    }
+                }
+            }
+            else
+            {
+                return !check;
             }
         }
-        catch(Exception ex)
+        catch(Exception e)
         {
-            
-            ex.printStackTrace();
-            return null;
+            e.printStackTrace();
         }
-        
-        return null;
+        return check;
     }
+    
+    
+    
 }

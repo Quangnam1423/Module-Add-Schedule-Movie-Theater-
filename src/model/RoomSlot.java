@@ -6,45 +6,33 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.ArrayList;
+
+
 /**
  *
  * @author tongquangnam
  */
 public class RoomSlot implements Serializable{
-    private Room room;
-    private int roomSlotId;
-    private int movieSessionId;   
-    private Date datetime;
     
-    @Override
-    public String toString() {
-        return "RoomSlot{" + "room=" + room + ", roomSlotId=" + roomSlotId + ", movieSessionId=" + movieSessionId + ", Datetime=" + datetime + '}';
+    private int roomSlotId;
+    private Room room;
+    private Date startTime;
+    private float movieLength;
+    private int movieSessionId;
+    private ArrayList<SeatSlot> SeatSlots;
+
+    public ArrayList<SeatSlot> getSeatSlots() {
+        return SeatSlots;
     }
 
-    public int getMovieSessionId() {
-        return movieSessionId;
+    public void setSeatSlots(ArrayList<SeatSlot> SeatSlots) {
+        this.SeatSlots = SeatSlots;
     }
-
-    public void setMovieSessionId(int movieSessionId) {
-        this.movieSessionId = movieSessionId;
-    }
-
-
-    public RoomSlot(Room room, int roomSlotId, int movieSessionId, Date datetime) {
-        this.room = room;
-        this.roomSlotId = roomSlotId;
-        this.movieSessionId = movieSessionId;
-        this.datetime = datetime;
-    }
-
-
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
+    
+    public void addSeatSlot (SeatSlot sl)
+    {
+        this.SeatSlots.add(sl);
     }
 
     public int getRoomSlotId() {
@@ -55,13 +43,54 @@ public class RoomSlot implements Serializable{
         this.roomSlotId = roomSlotId;
     }
 
-    public Date getDatetime() {
-        return datetime;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setDatetime(Date datetime) {
-        this.datetime = datetime;
+    public void setRoomId(Room room) {
+        this.room = room;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public float getMovieLength() {
+        return movieLength;
+    }
+
+    public void setMovieLength(float movieLength) {
+        this.movieLength = movieLength;
+    }
+
+    public int getMovieSessionId() {
+        return movieSessionId;
+    }
+
+    public void setMovieSessionId(int movieSessionId) {
+        this.movieSessionId = movieSessionId;
+    }
+
+    public RoomSlot(int roomSlotId, Room room, Date startTime, float movieLength, int movieSessionId) {
+        this.roomSlotId = roomSlotId;
+        this.room = room;
+        this.startTime = startTime;
+        this.movieLength = movieLength;
+        this.movieSessionId = movieSessionId;
+        this.SeatSlots = new ArrayList<>();
     }
     
-    
+public RoomSlot(int roomSlotId, Room room, Date startTime, float movieLength, int movieSessionId , ArrayList<SeatSlot> array) {
+        this.roomSlotId = roomSlotId;
+        this.room = room;
+        this.startTime = startTime;
+        this.movieLength = movieLength;
+        this.movieSessionId = movieSessionId;
+        this.SeatSlots = array;
+    }
+
 }

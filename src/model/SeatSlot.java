@@ -11,55 +11,62 @@ import java.io.Serializable;
  * @author tongquangnam
  */
 public class SeatSlot implements Serializable{
-    private Seat seat;
-    private String status;
-    private long type;
-    private int movieSessionId;
 
-
-
-    @Override
-    public String toString() {
-        return "SeatSlot{" + "seat=" + seat + ", status=" + status + ", type=" + type + ", movieSessionId=" + movieSessionId + '}';
-    }
     
-    public int getMovieSessionId() {
-        return movieSessionId;
-    }
+    private int seatSlot;
+    private Seat seat;
+    private long price;
+    private String seatStatus;
+    private int roomSlotId;
 
-    public void setMovieSessionId(int movieSessionId) {
-        this.movieSessionId = movieSessionId;
-    }
-
-    public SeatSlot(Seat seat, String status, long type, int movieSessionId) {
+    public SeatSlot(int seatSlot, Seat seat, long price, String seatStatus, int roomSlotId) {
+        this.seatSlot = seatSlot;
         this.seat = seat;
-        this.status = status;
-        this.type = type;
-        this.movieSessionId = movieSessionId;
+        this.price = price;
+        this.seatStatus = seatStatus;
+        this.roomSlotId = roomSlotId;
+    }
+
+    public int getSeatSlot() {
+        return seatSlot;
+    }
+
+    public void setSeatSlot(int seatSlot) {
+        this.seatSlot = seatSlot;
     }
 
     public Seat getSeat() {
-        return seat;
+        return this.seat;
     }
 
     public void setSeat(Seat seat) {
         this.seat = seat;
     }
 
-    public String getStatus() {
-        return status;
+    public long getPrice() {
+        return price;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPrice(long price) {
+        this.price = price;
     }
 
-    public long getType() {
-        return type;
+    public String getSeatStatus() {
+        return seatStatus;
     }
 
-    public void setType(long type) {
-        this.type = type;
+    public void setSeatStatus(String seatStatus) {
+        this.seatStatus = seatStatus;
     }
+
+    public int getRoomSlotId() {
+        return roomSlotId;
+    }
+
+    public void setRoomSlotId(int roomSlotId) {
+        this.roomSlotId = roomSlotId;
+    }
+    
+    
     
 }

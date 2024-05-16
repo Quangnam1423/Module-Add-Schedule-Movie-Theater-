@@ -17,22 +17,21 @@ public class DAO {
     public DAO(){
         if (con == null)
         {
-            String dbUrl = "jdbc:mysql://localhost:3306/movieTheater";
+            String dbUrl = "jdbc:sqlserver://TQN-PTIT:1433;databaseName=MovieTheater;encrypt=true;trustServerCertificate=true";
             try
             {
                 
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection(dbUrl , "root" , "@Tongquangnam2003");
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                con = DriverManager.getConnection(dbUrl , "sa" , "12345");
                 
-                System.out.println("Connected to MySQL database");
+                System.out.println("Connected to SQL server database");
                 
             }
             catch (Exception e)
             {
                 e.printStackTrace();
+                System.out.println("fail to connect to SQL server");
             }
         }
     }
-    
-    
 }

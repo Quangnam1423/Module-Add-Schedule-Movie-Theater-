@@ -4,6 +4,7 @@
  */
 package DAO;
 
+
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,68 +25,24 @@ public class SeatSlotDAO extends DAO{
     
     
     /**
-     * get All SeatSlot of MovieSession by movieSessionId
-     * @param movieSessionId
-     * @return 
-     */
-    public ArrayList<SeatSlot> getSeatSlotByMovieSessionId(int movieSessionId)
-    {
-        ArrayList<SeatSlot> result = new ArrayList<>();
-        
-        String sql = "SELECT * FROM tblSeatSlot WHERE movieSessionId = ?;";
-        
-        try
-        {
-            PreparedStatement ps = con.prepareStatement(sql);
-            
-            ps.setInt(1 , movieSessionId);
-            
-            ResultSet rs = ps.executeQuery();
-            
-            while (rs.next())
-            {
-                int seatId = rs.getInt("seatId");
-                Seat seat = SeatDAO.getSeatById(seatId);
-                SeatSlot ss = new SeatSlot(seat , 
-                                           rs.getString("status") , 
-                                           rs.getLong("price") , 
-                                           rs.getInt("movieSessionId")
-                                        );
-                
-                result.add(ss);
-            }
-        }
-        
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        
-        
-        return result;
-    }
-    
-    
-    /**
      * add SeatSlot into the database , 
      * @param seat
      * @param price
-     * @param movieSessionId
+     * @param roomSlotId
      * @return 
      */
-    public boolean addSeatSlot(Seat seat , long price , int movieSessionId)
+    public boolean addSeatSlot(Seat seat , long price , int roomSlotId)
     {
         boolean check = false;
         
-        String sql = "INSERT INTO tblSeatSlot(seatId , status , type , movieSessionId) VALUES (? , ? , ? , ?);";
+        String sql = "INSERT INTO tblSeatSlot(seatId , price , roomSlotId) VALUES (? , ? , ?);";
         try
         {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
             ps.setInt(1 , seat.getSeatId());
-            ps.setString(2 , "Trong");
-            ps.setString(3 , seat.getType());
-            ps.setInt(4 , movieSessionId);
+            ps.setString(2 , seat.getSeatType());
+            ps.setInt(3 , roomSlotId);
             
             ps.executeUpdate();
             
@@ -102,5 +59,46 @@ public class SeatSlotDAO extends DAO{
         }
         
         return check;  
+    }
+    
+    
+    /**
+     * 
+     * @param roomSlotId
+     * @return 
+     */
+    public static ArrayList<SeatSlot> getSeatSlotOfRoomSlot(int roomSlotId)
+    {
+        ArrayList<SeatSlot> seatslots = new ArrayList<>();
+        
+        
+        String sql = "SELECT *FROM dbo.tblSeatSlot WHERE roomSlotId = ?;";
+        
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, roomSlotId);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next())
+            {
+                int seatId = rs.getInt("seatId");
+                Seat seat = SeatDAO.getSeatBySeatId(seatId);
+                seatslots.add(new SeatSlot(rs.getInt("seatSlotId") , 
+                                        seat , 
+                                        rs.getInt("price") , 
+                                        rs.getString("seatStatus") , 
+                                        roomSlotId
+                                                ));
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();;
+        }
+        
+        return seatslots;
     }
 }

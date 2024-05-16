@@ -5,23 +5,30 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
  * @author tongquangnam
  */
 public class Room implements Serializable{
+
     private int roomId;
     private String roomName;
-    private String multiDimensional;
+    private String multiDemensional;
+    private ArrayList<Seat> seats;
 
-    public String getRoomName() {
-        return roomName;
+    public ArrayList<Seat> getSeats() {
+        return seats;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    } 
+    public void setSeats(ArrayList<Seat> seats) {
+        this.seats = seats;
+    }
+    public void addSeat(Seat newSeat)
+    {
+        seats.add(newSeat);
+    }
 
     public int getRoomId() {
         return roomId;
@@ -31,25 +38,40 @@ public class Room implements Serializable{
         this.roomId = roomId;
     }
 
-    public String getMultiDimensional() {
-        return multiDimensional;
+    public String getRoomName() {
+        return roomName;
     }
 
-    public void setMultiDimentional(String multiDimentsional) {
-        this.multiDimensional = multiDimentsional;
-    }
-
-    public Room(int roomId , String roomName , String multiDimensional)
-    {
-        this.roomId = roomId;
-        this.multiDimensional = multiDimensional;
+    public void setRoomName(String roomName) {
         this.roomName = roomName;
     }
+
+    public String getMultiDemensional() {
+        return multiDemensional;
+    }
+
+    public void setMultiDemensional(String multiDemensional) {
+        this.multiDemensional = multiDemensional;
+    }
+
+    public Room(int roomId, String roomName, String multiDemensional) {
+        this.roomId = roomId;
+        this.roomName = roomName;
+        this.multiDemensional = multiDemensional;
+        this.seats = new ArrayList<>();
+    }
+    
+    public Room(int roomId, String roomName, String multiDemensional , ArrayList<Seat> array) {
+        this.roomId = roomId;
+        this.roomName = roomName;
+        this.multiDemensional = multiDemensional;
+        this.seats = array;
+    }
+    
     
     @Override
-    
-    public String toString()
-    {
-        return String.format("%d %s %s" , this.roomId , this.roomName , this.multiDimensional);
+    public String toString() {
+        return "Room{" + "roomId=" + roomId + ", roomName=" + roomName + ", multiDemensional=" + multiDemensional + '}';
     }
+    
 }
