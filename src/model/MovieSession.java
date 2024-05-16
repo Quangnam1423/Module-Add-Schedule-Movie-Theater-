@@ -11,48 +11,7 @@ import java.io.Serializable;
  * @author tongquangnam
  */
 
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-
 public class MovieSession implements Serializable{
-    private int movieSessionId;
-    private int movieId;
-    private Date datetime;
-    private float length;
-    private long seatNormal;
-    private long seatVip;
-    private long seatDouble;
-
-
-
-    public MovieSession(int movieSessionId, 
-                        int movieId, 
-                        Date datetime, 
-                        float length, 
-                        long seatNormal, 
-                        long seatVip, 
-                        long seatDouble) 
-    {
-        this.movieSessionId = movieSessionId;
-        this.movieId = movieId;
-        this.datetime = datetime;
-        this.length = length;
-        this.seatNormal = seatNormal;
-        this.seatVip = seatVip;
-        this.seatDouble = seatDouble;
-    }
-    
-    
-    
-        public Date getDatetime() {
-        return datetime;
-    }
-
-    public void setDatetime(Date datetime) {
-        this.datetime = datetime;
-    }
-
 
     public int getMovieSessionId() {
         return movieSessionId;
@@ -60,6 +19,14 @@ public class MovieSession implements Serializable{
 
     public void setMovieSessionId(int movieSessionId) {
         this.movieSessionId = movieSessionId;
+    }
+
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
     }
 
     public int getMovieId() {
@@ -70,20 +37,19 @@ public class MovieSession implements Serializable{
         this.movieId = movieId;
     }
 
-
-    public float getLength() {
-        return length;
+    public String getDatetime() {
+        return datetime;
     }
 
-    public void setLength(float length) {
-        this.length = length;
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
     }
 
     public long getSeatNormal() {
         return seatNormal;
     }
 
-    public void setSeatNormal(int seatNormal) {
+    public void setSeatNormal(long seatNormal) {
         this.seatNormal = seatNormal;
     }
 
@@ -91,7 +57,7 @@ public class MovieSession implements Serializable{
         return seatVip;
     }
 
-    public void setSeatVip(int seatVip) {
+    public void setSeatVip(long seatVip) {
         this.seatVip = seatVip;
     }
 
@@ -99,41 +65,29 @@ public class MovieSession implements Serializable{
         return seatDouble;
     }
 
-    public void setSeatDouble(int seatDouble) {
+    public void setSeatDouble(long seatDouble) {
         this.seatDouble = seatDouble;
     }
-    
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-    
-    
-    public MovieSession(int movieSessionId, int movieId, int roomSlotId, String date, float length, int seatNormal, int seatVip, int seatDouble) {
+    public MovieSession(int movieSessionId, int roomId, int movieId, String datetime, long seatNormal, long seatVip, long seatDouble) {
         this.movieSessionId = movieSessionId;
+        this.roomId = roomId;
         this.movieId = movieId;
-        try
-        {
-            this.datetime = dateFormat.parse(date);
-        }
-        catch (ParseException e)
-        {
-            e.printStackTrace();
-        }
-        this.length = length;
+        this.datetime = datetime ;
         this.seatNormal = seatNormal;
         this.seatVip = seatVip;
         this.seatDouble = seatDouble;
     }
     
-    @Override
     
-    public String toString()
-    {
-        return String.format("%d %d %s %.1f %d %d %d", this.movieSessionId , 
-                this.movieId , 
-                dateFormat.format(datetime) , 
-                this.length , 
-                this.seatNormal , this.seatVip , 
-                this.seatDouble);
-    }
+    private int movieSessionId;
+    private int roomId;
+    private int movieId;
+    private String datetime;
+    private long seatNormal;
+    private long seatVip;
+    private long seatDouble;
+    
+    
     
 }

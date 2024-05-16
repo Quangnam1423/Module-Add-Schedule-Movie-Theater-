@@ -14,11 +14,11 @@ public class RoomSlot implements Serializable{
     private Room room;
     private int roomSlotId;
     private int movieSessionId;   
-    private Date Datetime;
+    private Date datetime;
     
     @Override
     public String toString() {
-        return "RoomSlot{" + "room=" + room + ", roomSlotId=" + roomSlotId + ", movieSessionId=" + movieSessionId + ", Datetime=" + Datetime + '}';
+        return "RoomSlot{" + "room=" + room + ", roomSlotId=" + roomSlotId + ", movieSessionId=" + movieSessionId + ", Datetime=" + datetime + '}';
     }
 
     public int getMovieSessionId() {
@@ -30,11 +30,11 @@ public class RoomSlot implements Serializable{
     }
 
 
-    public RoomSlot(Room room, int roomSlotId, int movieSessionId, Date Datetime) {
+    public RoomSlot(Room room, int roomSlotId, int movieSessionId, Date datetime) {
         this.room = room;
         this.roomSlotId = roomSlotId;
         this.movieSessionId = movieSessionId;
-        this.Datetime = Datetime;
+        this.datetime = datetime;
     }
 
 
@@ -56,11 +56,11 @@ public class RoomSlot implements Serializable{
     }
 
     public Date getDatetime() {
-        return Datetime;
+        return datetime;
     }
 
-    public void setDatetime(Date Datetime) {
-        this.Datetime = Datetime;
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
     }
     
     

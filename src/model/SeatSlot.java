@@ -16,13 +16,15 @@ public class SeatSlot implements Serializable{
     private long type;
     private int movieSessionId;
 
-    public int getMovieSessionId() {
-        return movieSessionId;
-    }
+
 
     @Override
     public String toString() {
         return "SeatSlot{" + "seat=" + seat + ", status=" + status + ", type=" + type + ", movieSessionId=" + movieSessionId + '}';
+    }
+    
+    public int getMovieSessionId() {
+        return movieSessionId;
     }
 
     public void setMovieSessionId(int movieSessionId) {
@@ -34,12 +36,6 @@ public class SeatSlot implements Serializable{
         this.status = status;
         this.type = type;
         this.movieSessionId = movieSessionId;
-    }
-
-    public SeatSlot(Seat seat, String status, long type) {
-        this.seat = seat;
-        this.status = status;
-        this.type = type;
     }
 
     public Seat getSeat() {
