@@ -19,18 +19,29 @@ import java.util.ArrayList;
  */
 public class RoomDAO extends DAO{
     
-    
+    public static SeatDAO sDAO = new SeatDAO();
     public RoomDAO()
     {
         super();
     }
+    
+    
+    public static void main(String[] args)
+    {
+        RoomDAO rDAO = new RoomDAO();
+        
+        Room room = rDAO.getRoomById(1);
+        
+        System.out.println(room);
+    }
+     
     /**
      *get room by RoomID
      *@param roomId
      *@return
      */
     
-    public static Room getRoomById(int roomId)
+    public Room getRoomById(int roomId)
     {
         String sql = "SELECT * FROM tblRoom where roomId = ?";
         try{
@@ -43,6 +54,7 @@ public class RoomDAO extends DAO{
             if (rs.next())
             {
                 Room room = new Room(rs.getInt("roomId") , rs.getString("roomName") , rs.getString("multiDimensional"));
+                room.setSeats(sDAO.getAllSeatByRoomId(room.getRoomId()));
                 return room;
             }
         }
@@ -64,17 +76,20 @@ public class RoomDAO extends DAO{
     {
         ArrayList<Room> result = new ArrayList<>();
         
-        String sql = "SELECT * from tblRoom WHERE roomName LIKE ?";
+        String sql = "SELECT * from tblRoom WHERE roomName LIKE ? ORDER BY roomName ASC";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             
-            ps.setString(1 , roomName);
+            ps.setString(1 ,"%" + roomName+ "%");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next())
             {
-                Room Room = new Room(rs.getInt("roomId") , rs.getString("roomName") , rs.getString("multiDimensional"));
-                result.add(Room);
+                Room room = new Room(rs.getInt("roomId") , rs.getString("roomName") , rs.getString("multiDimensional"));
+
+                room.setSeats(sDAO.getAllSeatByRoomId(room.getRoomId()));
+                
+                result.add(room);
             }
         }
         catch( SQLException e)
@@ -93,7 +108,7 @@ public class RoomDAO extends DAO{
     {
         ArrayList<Room> array = new ArrayList<>();
         
-        String sql = "SELECT * FROM tblRoom";
+        String sql = "SELECT * FROM tblRoom ORDER BY roomId ASC";
         
         try
         {
@@ -103,7 +118,9 @@ public class RoomDAO extends DAO{
             
             while (rs.next())
             {
-                array.add(new Room(rs.getInt("roomId") , rs.getString("roomName") , rs.getString("multiDimensional")));
+                Room room = new Room(rs.getInt("roomId") , rs.getString("roomName") , rs.getString("multiDimensional"));
+                room.setSeats(sDAO.getAllSeatByRoomId(room.getRoomId()));
+                array.add(room);
             }
         }
         catch( SQLException e)

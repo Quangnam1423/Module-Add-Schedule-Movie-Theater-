@@ -21,12 +21,24 @@ public class SeatDAO extends DAO{
     }
     
     
+    public static void main(String[] args)
+    {
+        SeatDAO test = new SeatDAO();
+        
+        ArrayList<Seat> array = test.getAllSeatByRoomId(2);
+        
+        for (Seat x : array)
+        {
+            System.out.println(x);
+        }
+    }
+    
     /**
      * 
      * @param roomId
      * @return 
      */
-    public static ArrayList<Seat> getAllSeatByRoomId(int roomId)
+    public ArrayList<Seat> getAllSeatByRoomId(int roomId)
     {
         ArrayList<Seat> array = new ArrayList<>();
         
@@ -65,7 +77,7 @@ public class SeatDAO extends DAO{
      * @param seatId
      * @return 
      */
-    public static Seat getSeatBySeatId (int seatId)
+    public  Seat getSeatBySeatId (int seatId)
     {
         String sql = "SELECT * FROM dbo.tblSeat WHERE seatId = ?;";
         

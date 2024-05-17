@@ -75,6 +75,11 @@ public class Seat implements Serializable{
         this.descript = descript;
         this.roomId = roomId;
     }
+
+    @Override
+    public String toString() {
+        return "Seat{" + "seatId=" + seatId + ", col=" + col + ", ro=" + ro + ", seatType=" + seatType + ", descript=" + descript + ", roomId=" + roomId + '}';
+    }
     
     
 }

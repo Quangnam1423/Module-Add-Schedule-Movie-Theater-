@@ -18,6 +18,8 @@ import model.SeatSlot;
  */
 public class SeatSlotDAO extends DAO{
     
+    
+    private static SeatDAO seatDao = new SeatDAO();
     public SeatSlotDAO()
     {
         super();
@@ -62,12 +64,13 @@ public class SeatSlotDAO extends DAO{
     }
     
     
+   
     /**
      * 
      * @param roomSlotId
      * @return 
      */
-    public static ArrayList<SeatSlot> getSeatSlotOfRoomSlot(int roomSlotId)
+    public ArrayList<SeatSlot> getSeatSlotOfRoomSlot(int roomSlotId)
     {
         ArrayList<SeatSlot> seatslots = new ArrayList<>();
         
@@ -85,7 +88,7 @@ public class SeatSlotDAO extends DAO{
             while (rs.next())
             {
                 int seatId = rs.getInt("seatId");
-                Seat seat = SeatDAO.getSeatBySeatId(seatId);
+                Seat seat = seatDao.getSeatBySeatId(seatId);
                 seatslots.add(new SeatSlot(rs.getInt("seatSlotId") , 
                                         seat , 
                                         rs.getInt("price") , 

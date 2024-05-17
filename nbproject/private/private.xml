@@ -3,12 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/tongquangnam/NetBeansProjects/AddSchedule/src/model/Room.java</file>
-            <file>file:/home/tongquangnam/NetBeansProjects/AddSchedule/src/DAO/MovieDAO.java</file>
-            <file>file:/home/tongquangnam/NetBeansProjects/AddSchedule/src/model/MovieSession.java</file>
-            <file>file:/home/tongquangnam/NetBeansProjects/AddSchedule/src/model/Movie.java</file>
-            <file>file:/home/tongquangnam/NetBeansProjects/AddSchedule/src/DAO/MovieSessionDAO.java</file>
-            <file>file:/home/tongquangnam/NetBeansProjects/AddSchedule/src/model/Seat.java</file>
+            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/model/RoomSlot.java</file>
+            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/DAO/SeatDAO.java</file>
+            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/DAO/DAO.java</file>
+            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/DAO/RoomSlotDAO.java</file>
+            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/DAO/MovieSessionDAO.java</file>
+            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/DAO/SeatSlotDAO.java</file>
+            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/model/Movie.java</file>
         </group>
     </open-files>
 </project-private>

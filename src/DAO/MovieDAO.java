@@ -31,7 +31,7 @@ public class MovieDAO extends DAO{
     public static ArrayList<Movie> getAllMovie()
     {
         ArrayList<Movie> array = new ArrayList<>();
-        String sql = "SELECT * FROM dbo.tblMovie";
+        String sql = "SELECT * FROM dbo.tblMovie ORDER BY movieName ASC";
         
         try
         {
@@ -72,7 +72,7 @@ public class MovieDAO extends DAO{
         {
             PreparedStatement ps = con.prepareStatement(sql);
             
-            ps.setString(1 , movieName);
+            ps.setString(1 ,"%" + movieName + "%");
             
             ResultSet rs = ps.executeQuery();
             

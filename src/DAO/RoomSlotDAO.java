@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -20,7 +21,8 @@ import java.util.ArrayList;
  */
 public class RoomSlotDAO extends DAO{
     
-    
+    public static SeatSlotDAO ssDAO = new SeatSlotDAO();
+    public static RoomDAO rDAO = new RoomDAO();
     public RoomSlotDAO()
     {
         super();
@@ -34,7 +36,7 @@ public class RoomSlotDAO extends DAO{
      */
     public static RoomSlot getRoomSlotByMovieSessionId(int movieSessionId)
     {
-        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String sql = "SELECT * FROM tblRoomSlot  b WHERE b.movieSessionId = ?;";
         
         try
@@ -49,11 +51,13 @@ public class RoomSlotDAO extends DAO{
             if (rs.next())
             {
                 int roomId = rs.getInt("roomId");
-                Room room = RoomDAO.getRoomById(roomId);
-                ArrayList<SeatSlot> array = SeatSlotDAO.getSeatSlotOfRoomSlot(rs.getInt("roomSlotId"));
+                Room room = rDAO.getRoomById(roomId);
+                ArrayList<SeatSlot> array = ssDAO.getSeatSlotOfRoomSlot(rs.getInt("roomSlotId"));
+                
+                
                 return new RoomSlot(rs.getInt("roomSlotId") , 
                                     room , 
-                                    (java.util.Date) rs.getDate("startTime") ,
+                                    sdf.parse(rs.getString("startTime")) ,
                                     rs.getFloat("movieLength") , 
                                     movieSessionId ,
                                     array
@@ -76,11 +80,12 @@ public class RoomSlotDAO extends DAO{
      * @param datetime
      * @return 
      */
-    public static boolean addRoomSlot(Room room , int movieSessionId , Date datetime)
+    public static boolean addRoomSlot(Room room , int movieSessionId , Date datetime , float movieLength)
     {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         boolean result = true;
         
-        String sql = "INSERT INTO tblRoomSlot(roomId , movieSessionId , datetime) VALUES(? , ? , ?);";
+        String sql = "INSERT INTO tblRoomSlot(roomId , movieSessionId , startTime , movieLength) VALUES(? , ? , ? , ?);";
         
         try
         {
@@ -88,7 +93,8 @@ public class RoomSlotDAO extends DAO{
             
             ps.setInt(1 , room.getRoomId());
             ps.setInt(2 , movieSessionId);
-            ps.setDate(3 , (java.sql.Date) datetime);
+            ps.setString(3 , sdf.format(datetime));
+            ps.setFloat(4, movieLength);
             
             ps.executeUpdate();
             

@@ -25,6 +25,8 @@ public class Room implements Serializable{
     public void setSeats(ArrayList<Seat> seats) {
         this.seats = seats;
     }
+    
+    
     public void addSeat(Seat newSeat)
     {
         seats.add(newSeat);
@@ -67,11 +69,9 @@ public class Room implements Serializable{
         this.multiDemensional = multiDemensional;
         this.seats = array;
     }
-    
-    
+
     @Override
     public String toString() {
-        return "Room{" + "roomId=" + roomId + ", roomName=" + roomName + ", multiDemensional=" + multiDemensional + '}';
+        return "Room{" + "roomId=" + roomId + ", roomName=" + roomName + ", multiDemensional=" + multiDemensional + ", seats=" + seats + '}';
     }
-    
 }
