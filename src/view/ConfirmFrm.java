@@ -18,6 +18,7 @@ public class ConfirmFrm extends javax.swing.JFrame {
      */
     public ConfirmFrm(AddSchedule addSchedule) {
         initComponents();
+        setLocationRelativeTo(null);
         this.addSchedule = addSchedule;
         this.NameField.setText(addSchedule.getMovie().getMovieName());
         this.RoomField.setText(addSchedule.getRoom().getRoomName());
@@ -185,7 +186,7 @@ public class ConfirmFrm extends javax.swing.JFrame {
         {
             dispose();
         
-            new LoginFrm(new AddSchedule()).setVisible(true);
+            new Announcement(new AddSchedule()).setVisible(true);
         }
 
     }//GEN-LAST:event_SubmitButtonActionPerformed
