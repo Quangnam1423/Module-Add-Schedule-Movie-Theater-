@@ -18,6 +18,7 @@ public class Announcement extends javax.swing.JFrame {
      */
     public Announcement(AddSchedule addSchedule) {
         initComponents();
+        setLocationRelativeTo(null);
         this.addSchedule = addSchedule;
     }
 
