@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/model/RoomSlot.java</file>
-            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/DAO/SeatDAO.java</file>
-            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/DAO/DAO.java</file>
-            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/DAO/RoomSlotDAO.java</file>
-            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/DAO/MovieSessionDAO.java</file>
-            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/DAO/SeatSlotDAO.java</file>
-            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/model/Movie.java</file>
+            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/view/FillDateTime.java</file>
+            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/view/FillPriceTicket.java</file>
+            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/addschedule/AddSchedule.java</file>
+            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/view/ChoiceRoomFrm.java</file>
+            <file>file:/D:/Module-Add-Schedule-Movie-Theater-/src/view/LoginFrm.java</file>
         </group>
     </open-files>
 </project-private>

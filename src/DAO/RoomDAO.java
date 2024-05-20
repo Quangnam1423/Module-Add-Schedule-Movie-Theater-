@@ -19,20 +19,11 @@ import java.util.ArrayList;
  */
 public class RoomDAO extends DAO{
     
-    public static SeatDAO sDAO = new SeatDAO();
+    public  SeatDAO sDAO;
     public RoomDAO()
     {
         super();
-    }
-    
-    
-    public static void main(String[] args)
-    {
-        RoomDAO rDAO = new RoomDAO();
-        
-        Room room = rDAO.getRoomById(1);
-        
-        System.out.println(room);
+        sDAO = new SeatDAO();
     }
      
     /**
@@ -72,7 +63,7 @@ public class RoomDAO extends DAO{
      *@param roomName
      *@return
      */
-    public static ArrayList<Room> searchRoom(String roomName)
+    public ArrayList<Room> searchRoom(String roomName)
     {
         ArrayList<Room> result = new ArrayList<>();
         
@@ -104,7 +95,7 @@ public class RoomDAO extends DAO{
      *get all room entity
      *@return
      */
-    public static ArrayList<Room> getAllRoom()
+    public ArrayList<Room> getAllRoom()
     {
         ArrayList<Room> array = new ArrayList<>();
         

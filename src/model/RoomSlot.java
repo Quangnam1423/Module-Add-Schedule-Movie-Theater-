@@ -93,4 +93,10 @@ public RoomSlot(int roomSlotId, Room room, Date startTime, float movieLength, in
         this.SeatSlots = array;
     }
 
+    @Override
+    public String toString() {
+        return "RoomSlot{" + "roomSlotId=" + roomSlotId + ", room=" + room + ", startTime=" + startTime + ", movieLength=" + movieLength + ", movieSessionId=" + movieSessionId + ", SeatSlots=" + SeatSlots + '}';
+    }
+
+    
 }

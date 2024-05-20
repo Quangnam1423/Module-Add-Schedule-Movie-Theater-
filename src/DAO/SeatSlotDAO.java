@@ -19,7 +19,7 @@ import model.SeatSlot;
 public class SeatSlotDAO extends DAO{
     
     
-    private static SeatDAO seatDao = new SeatDAO();
+    private SeatDAO seatDao = new SeatDAO();
     public SeatSlotDAO()
     {
         super();
@@ -75,7 +75,7 @@ public class SeatSlotDAO extends DAO{
         ArrayList<SeatSlot> seatslots = new ArrayList<>();
         
         
-        String sql = "SELECT *FROM dbo.tblSeatSlot WHERE roomSlotId = ?;";
+        String sql = "SELECT *FROM dbo.tblSeatSlot  b WHERE b.roomSlotId = ?;";
         
         try
         {

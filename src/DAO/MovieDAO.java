@@ -24,11 +24,12 @@ public class MovieDAO extends DAO{
         super();
     }
     
+    
     /**
      * 
      * @return 
      */
-    public static ArrayList<Movie> getAllMovie()
+    public ArrayList<Movie> getAllMovie()
     {
         ArrayList<Movie> array = new ArrayList<>();
         String sql = "SELECT * FROM dbo.tblMovie ORDER BY movieName ASC";
@@ -58,15 +59,16 @@ public class MovieDAO extends DAO{
     }
     
     
+    
     /**
      * 
      * @param movieName
      * @return 
      */
-    public static ArrayList<Movie> getMovieByName(String movieName)
+    public ArrayList<Movie> getMovieByName(String movieName)
     {
         ArrayList<Movie> array = new ArrayList<>();
-        String sql = "SELECT * FROM dbo.tblMovie WHERE movieName LIKE ?";
+        String sql = "SELECT * FROM dbo.tblMovie WHERE movieName COLLATE SQL_Latin1_General_CP1_CI_AS LIKE ?";
         
         try
         {
@@ -95,12 +97,14 @@ public class MovieDAO extends DAO{
     }
     
     
+    
+    
     /**
      * 
      * @param movieId
      * @return 
      */
-    public static Movie getMovieById(int movieId)
+    public Movie getMovieById(int movieId)
     {
         String sql = "SELECT * FROM dbo.tblMovie WHERE movieId = ?;";
         
@@ -128,5 +132,82 @@ public class MovieDAO extends DAO{
             e.printStackTrace();
         }
         return null;
+    }
+    
+    
+    /**
+     * 
+     * @param rating
+     * @return 
+     */
+    public ArrayList<Movie> getMovieByHigherRating(float rating)
+    {
+        ArrayList<Movie> array = new ArrayList<>();
+        
+        String sql = "SELECT * FROM tblMovie WHERE rating >= ?;";
+        
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setFloat(1 , rating);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next())
+            {
+                array.add(new Movie(rs.getInt("movieId") ,
+                                    rs.getString("movieName") ,
+                                    rs.getString("descript") ,
+                                    rs.getFloat("movieLength") ,
+                                    rs.getString("movieLanguage") ,
+                                    rs.getFloat("rating")
+                                ));
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return array;
+    }
+    
+    
+    /**
+     * 
+     * @param movieName
+     * @param rating
+     * @return 
+     */
+    public ArrayList<Movie> getMovieByNameAndRating(String movieName , float rating)
+    {
+        ArrayList<Movie> array = new ArrayList<>();
+        String sql = "SELECT * FROM dbo.tblMovie where movieName Like ? and rating >= ?;";
+        
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setString(1,"%" + movieName + "%");
+            ps.setFloat(2, rating);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next())
+            {
+                array.add(new Movie(rs.getInt("movieId") ,
+                                    rs.getString("movieName") ,
+                                    rs.getString("descript") ,
+                                    rs.getFloat("movieLength") ,
+                                    rs.getString("movieLanguage") ,
+                                    rs.getFloat("rating")
+                                ));
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return array;
     }
 }

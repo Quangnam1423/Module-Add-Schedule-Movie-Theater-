@@ -66,6 +66,11 @@ public class SeatSlot implements Serializable{
     public void setRoomSlotId(int roomSlotId) {
         this.roomSlotId = roomSlotId;
     }
+
+    @Override
+    public String toString() {
+        return "SeatSlot{" + "seatSlot=" + seatSlot + ", seat=" + seat + ", price=" + price + ", seatStatus=" + seatStatus + ", roomSlotId=" + roomSlotId + '}';
+    }
     
     
     

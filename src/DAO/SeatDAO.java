@@ -84,6 +84,7 @@ public class SeatDAO extends DAO{
         try
         {
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, seatId);
             
             ResultSet rs = ps.executeQuery();
             

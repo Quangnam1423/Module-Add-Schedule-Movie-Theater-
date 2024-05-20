@@ -7,12 +7,14 @@ package DAO;
 import model.RoomSlot;
 import model.Room;
 import model.SeatSlot;
+import model.Seat;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 
 /**
@@ -21,11 +23,22 @@ import java.text.SimpleDateFormat;
  */
 public class RoomSlotDAO extends DAO{
     
-    public static SeatSlotDAO ssDAO = new SeatSlotDAO();
-    public static RoomDAO rDAO = new RoomDAO();
+    public SeatSlotDAO ssDAO;
+    public RoomDAO rDAO;
+    SimpleDateFormat sdf;
     public RoomSlotDAO()
     {
         super();
+        ssDAO = new SeatSlotDAO();
+        rDAO = new RoomDAO();
+        sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    }
+    
+    public static void main(String[] args)
+    {
+        RoomSlotDAO rlDAO = new RoomSlotDAO();
+        
+        System.out.println(rlDAO.getRoomSlotByMovieSessionId(1));
     }
     
     
@@ -34,10 +47,9 @@ public class RoomSlotDAO extends DAO{
      * @param movieSessionId
      * @return 
      */
-    public static RoomSlot getRoomSlotByMovieSessionId(int movieSessionId)
+    public RoomSlot getRoomSlotByMovieSessionId(int movieSessionId)
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String sql = "SELECT * FROM tblRoomSlot  b WHERE b.movieSessionId = ?;";
+        String sql = "SELECT * FROM tblRoomSlot WHERE movieSessionId = ?;";
         
         try
         {
@@ -52,10 +64,11 @@ public class RoomSlotDAO extends DAO{
             {
                 int roomId = rs.getInt("roomId");
                 Room room = rDAO.getRoomById(roomId);
-                ArrayList<SeatSlot> array = ssDAO.getSeatSlotOfRoomSlot(rs.getInt("roomSlotId"));
+                int roomSlotId = rs.getInt("roomSlotId");
+                ArrayList<SeatSlot> array = ssDAO.getSeatSlotOfRoomSlot(roomSlotId);
                 
                 
-                return new RoomSlot(rs.getInt("roomSlotId") , 
+                return new RoomSlot(roomSlotId , 
                                     room , 
                                     sdf.parse(rs.getString("startTime")) ,
                                     rs.getFloat("movieLength") , 
@@ -74,17 +87,18 @@ public class RoomSlotDAO extends DAO{
     }
     
     /**
-     * add a RoomSlot object in the database.
+     * 
      * @param room
      * @param movieSessionId
      * @param datetime
+     * @param movieLength
+     * @param seatNormal
+     * @param seatVip
+     * @param seatDouble
      * @return 
      */
-    public static boolean addRoomSlot(Room room , int movieSessionId , Date datetime , float movieLength)
+    public boolean addRoomSlot(Room room , int movieSessionId , Date datetime , float movieLength , long seatNormal , long seatVip , long seatDouble)
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        boolean result = true;
-        
         String sql = "INSERT INTO tblRoomSlot(roomId , movieSessionId , startTime , movieLength) VALUES(? , ? , ? , ?);";
         
         try
@@ -102,7 +116,20 @@ public class RoomSlotDAO extends DAO{
             
             if (rs.next())
             {
-                return result;
+                int newRoomSlotId = rs.getInt(1);
+                
+                for (Seat x : room.getSeats())
+                {
+                    if(x.getSeatType().equals("Normal"))
+                        ssDAO.addSeatSlot(x , seatNormal , newRoomSlotId);
+                    else if (x.getSeatType().equals("Vip"))
+                    {
+                        ssDAO.addSeatSlot(x, seatVip, newRoomSlotId);
+                    }
+                    else
+                        ssDAO.addSeatSlot(x , seatDouble , newRoomSlotId);
+                }
+                return true;
             }
         }
         catch (Exception ex)
@@ -114,4 +141,42 @@ public class RoomSlotDAO extends DAO{
     }
     
     
+    /**
+     * 
+     * @param roomId
+     * @return 
+     */
+    public ArrayList<RoomSlot> getRoomSlotByRoomId(int roomId)
+    {
+        
+        ArrayList<RoomSlot> array = new ArrayList<>();
+        String sql = "SELECT * FROM tblRoomSLot WHERE roomId = ?;";
+        
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setInt(1 , roomId);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next())
+            {
+                ArrayList<SeatSlot> sslots = ssDAO.getSeatSlotOfRoomSlot(rs.getInt("roomSlotId"));
+                array.add(new RoomSlot(rs.getInt("roomSlotId") ,
+                                        rDAO.getRoomById(roomId) ,
+                                        sdf.parse(rs.getString("startTime")) ,
+                                        rs.getFloat("movieLength") , 
+                                        rs.getInt("movieSessionId") , 
+                                        sslots
+                            ));
+            }
+            
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return array;
+    }
 }

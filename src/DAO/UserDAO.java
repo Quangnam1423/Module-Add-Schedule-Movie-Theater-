@@ -18,6 +18,8 @@ public class UserDAO extends DAO{
     {
         super();
     }
+   
+    
     /**
      *@param user
      *@return

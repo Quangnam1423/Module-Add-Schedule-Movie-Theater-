@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.Date;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -19,11 +20,18 @@ import java.util.ArrayList;
  */
 public class MovieSessionDAO extends DAO{
     
+    private static SimpleDateFormat sdf;
+    private RoomDAO rDAO;
+    private MovieDAO mDAO;
+    private SeatSlotDAO ssDAO;
     public MovieSessionDAO()
     {
         super();
+        rDAO = new RoomDAO();
+        mDAO = new MovieDAO();
+        ssDAO = new SeatSlotDAO();
+        sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     }
-    
     
     /**
      * add a movieSession into the database.
@@ -121,7 +129,4 @@ public class MovieSessionDAO extends DAO{
         }
         return check;
     }
-    
-    
-    
 }
