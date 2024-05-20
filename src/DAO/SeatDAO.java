@@ -20,19 +20,6 @@ public class SeatDAO extends DAO{
         super();
     }
     
-    
-    public static void main(String[] args)
-    {
-        SeatDAO test = new SeatDAO();
-        
-        ArrayList<Seat> array = test.getAllSeatByRoomId(2);
-        
-        for (Seat x : array)
-        {
-            System.out.println(x);
-        }
-    }
-    
     /**
      * 
      * @param roomId

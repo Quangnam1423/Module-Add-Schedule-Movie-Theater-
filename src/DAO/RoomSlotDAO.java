@@ -34,13 +34,6 @@ public class RoomSlotDAO extends DAO{
         sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     }
     
-    public static void main(String[] args)
-    {
-        RoomSlotDAO rlDAO = new RoomSlotDAO();
-        
-        System.out.println(rlDAO.getRoomSlotByMovieSessionId(1));
-    }
-    
     
     /**
      * get RoomSlot by MovieSessionId in database.

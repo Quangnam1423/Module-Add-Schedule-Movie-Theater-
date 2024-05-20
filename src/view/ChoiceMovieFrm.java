@@ -286,9 +286,9 @@ public class ChoiceMovieFrm extends javax.swing.JFrame {
             int MovieId = (int) Table.getValueAt(selectedRow, 0);
             String movieName = (String) Table.getValueAt(selectedRow, 1);
             String descript = (String) Table.getValueAt(selectedRow, 2);
-            float movieLength = Float.parseFloat((String)Table.getValueAt(selectedRow , 3));
+            float movieLength = (float)Table.getValueAt(selectedRow , 3);
             String movieLanguage = (String) Table.getValueAt(selectedRow, 4);
-            float rating = Float.parseFloat((String) Table.getValueAt(selectedRow, 5));
+            float rating = (float) Table.getValueAt(selectedRow, 5);
             
             
             //set Movie for addSchedule object
