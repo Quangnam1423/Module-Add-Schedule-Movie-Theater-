@@ -189,13 +189,19 @@ public class ChoiceRoomFrm extends javax.swing.JFrame {
             defaultTableModel.setColumnCount(0);
 
             array = roomDao.searchRoom(RoomField.getText());
-
-            for (Room x : array)
+            if(!array.isEmpty())
             {
-                defaultTableModel.addRow(new Object[]{
-                                x.getRoomId() , x.getRoomName() , x.getMultiDemensional()
-                });
-            }         
+                for (Room x : array)
+                {
+                    defaultTableModel.addRow(new Object[]{
+                                    x.getRoomId() , x.getRoomName() , x.getMultiDemensional()
+                    });
+                }     
+            }
+            else
+            {
+                announcement.setText("Không có phòng nào giống như tên phòng đã nhập!");
+            }
         }
     }//GEN-LAST:event_LocButtonActionPerformed
 

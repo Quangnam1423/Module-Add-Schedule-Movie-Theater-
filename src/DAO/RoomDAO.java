@@ -67,7 +67,7 @@ public class RoomDAO extends DAO{
     {
         ArrayList<Room> result = new ArrayList<>();
         
-        String sql = "SELECT * from tblRoom WHERE roomName LIKE ? ORDER BY roomName ASC";
+        String sql = "SELECT * from tblRoom WHERE roomName COLLATE SQL_Latin1_General_CP1_CI_AS LIKE ?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             
