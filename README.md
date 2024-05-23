@@ -3,7 +3,8 @@ This is small java module for add movie schedule using jdbc for backend and swin
 
 ## Setup
 
-Install jdbc to connect sql server database [here]{https://go.microsoft.com/fwlink/?linkid=2262747}
+Install jdbc to connect sql server database [here](https://go.microsoft.com/fwlink/?linkid=2262747).
+
 Add jar file to library.
 
 ### Build
