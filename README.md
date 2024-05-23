@@ -8,7 +8,6 @@ Install jdbc to connect sql server database [here](https://go.microsoft.com/fwli
 Add jar file to library.
 
 ### Build
-
-> **git clone https://github.com/Quangnam1423/Module-Add-Schedule-Movie-Theater-.git**
+    git clone https://github.com/Quangnam1423/Module-Add-Schedule-Movie-Theater-.git
 
 Open project with NetBeans Apache and run... So easy!
