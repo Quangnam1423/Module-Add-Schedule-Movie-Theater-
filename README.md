@@ -9,5 +9,5 @@ Add jar file to library.
 
 ### Build
     git clone https://github.com/Quangnam1423/Module-Add-Schedule-Movie-Theater-.git
-
+    cd Module-Add-Schedule-Movie-Theater
 Open project with NetBeans Apache and run... So easy!
